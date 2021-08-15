@@ -1,0 +1,14 @@
+.person{
+    display: inline-block;
+    margin: 20px;
+    box-shadow: 0 0 10px grey;
+    width: 150px;
+    text-align: center;
+    padding: 10px;
+}
+.person h1{
+    color:dodgerblue;
+}
+.person p{
+    color:indigo;
+}

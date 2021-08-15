@@ -1,0 +1,35 @@
+<html>
+  <head>
+    <script crossorigin src="https://unpkg.com/react@17/umd/react.production.min.js"></script>
+    <script crossorigin src="https://unpkg.com/react-dom@17/umd/react-dom.production.min.js"></script>
+    <!-- Babel JS is required to compile modern JS (ES6+ etc) to backwards compatible version of JavaScript. -->
+    <script crossorigin src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+    <link href="style.css" rel="stylesheet"/>
+  </head>
+  <body>
+    <div id="app"></div>
+    
+    <script type="text/babel">
+        // Note: "className" is used instead of "class". Because "class" is a keyword in JS
+      function Person(props){
+        return (
+          <div className="person">
+            <h1>{props.name}</h1>
+            <p>Age: {props.age}</p>
+            </div>
+            );
+      }
+      let app = (
+        <div>
+          <Person name="Max" age="25"/>
+          <Person name="John" age="28"/>
+          <Person name="Daw" age="27"/>
+        </div>
+      );
+      ReactDOM.render(app, document.querySelector("#app"));
+    </script>
+    <!-- 
+      If you use above code as External JS file, then you need to compile (with Babel) this code first. 
+     -->
+  </body>
+</html> 
