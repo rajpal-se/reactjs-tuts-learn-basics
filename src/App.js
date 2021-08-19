@@ -7,7 +7,7 @@ const App = () => {
     persons: [
       {name: "Max", age: "20"},
       {name: "John", age: "29"},
-      {name: "Cia", age: "19"}
+      {name: "Brainly", age: "19"}
     ]
   });
   const [otherState, setOtherState] = useState({
@@ -15,15 +15,25 @@ const App = () => {
   });
   
   const onChangeHandler = (index, event) => {
-    // console.log(this);     // undefined
-    // console.log(index, event);
     let newPersonState = {...personState};
     newPersonState.persons[index].name = event.target.value;
     setPersonState(newPersonState);
   }
+
+  let headingStyle = {
+    color: "white",
+    textShadow: "1px 1px 2px black",
+    border: "1px solid gray",
+    borderRadius: "20px",
+    display: "inline-block",
+    margin: "5px auto",
+    padding: "20px 40px",
+    backgroundColor: "#dddddd"
+  };
+
   return (
     <div className="App">
-      <h1>Person Details</h1>
+      <h1 style={headingStyle}>Person Details</h1>
       <Person
         change={onChangeHandler.bind(this, 0)}
         name={personState.persons[0].name}
@@ -41,19 +51,30 @@ const App = () => {
 }
 export default App;
 
-/* 
-1. Passing function reference only
-    change={ myHandler }
+/* Note
+1. Using "css" file and import this file in any JS file of the application
+    - This "style" is "Globally" available. (It is NOT Scoped)
+    - hover, active, etc effect are possible.
+    - During import file extension ".css" is required.
+    - "css" imported files handled separately by WebPack.
 
-2. Passing function reference WITH Arguments.
-    Method 1: Recommended (using bind method)
-    change={ myHandler.bind(this, arg_1, arg_2, ..., arg_n) }
+2. Inline Styling, JSX provides "style" attribute, which accepts JS object of css properties
+    - This "style" is Scoped to only one element.
+        1. const style = { css... }
+            <div style={style} >
+        2. <div style={ { css... } } >
+    - NOT possible (hover, active, etc effect).
+
+3. using "css modules" e.g: rename css/sass/scss files as
+    - style.module.css
+    - style.module.scss
+    - style.module.sass
+
+    Note: Before "react-scripts@2.0.0", use "npm run eject" and follow its steps.
+
     
-    Method 2: Inefficient way
-    change={ () => myHandler(arg_1, arg_2, ..., arg_n) }
+4. Using Third party package.
+    ex: Radium
 
-    Note: event will be the last argument
-    const handler = (arg_1, arg_2, ..., arg_n, event) => {
-      // code...
-    }
+
 */
