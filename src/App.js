@@ -31,6 +31,13 @@ const App = () => {
     backgroundColor: "#dddddd"
   };
 
+  personState.persons.forEach(person => {
+    if(person.name.length > 6){
+      headingStyle.color = 'green';
+      headingStyle.textShadow = '1px 1px 2px white';
+    }
+  });
+
   return (
     <div className="App">
       <h1 style={headingStyle}>Person Details</h1>
@@ -50,31 +57,3 @@ const App = () => {
   );
 }
 export default App;
-
-/* Note
-1. Using "css" file and import this file in any JS file of the application
-    - This "style" is "Globally" available. (It is NOT Scoped)
-    - hover, active, etc effect are possible.
-    - During import file extension ".css" is required.
-    - "css" imported files handled separately by WebPack.
-
-2. Inline Styling, JSX provides "style" attribute, which accepts JS object of css properties
-    - This "style" is Scoped to only one element.
-        1. const style = { css... }
-            <div style={style} >
-        2. <div style={ { css... } } >
-    - NOT possible (hover, active, etc effect).
-
-3. using "css modules" e.g: rename css/sass/scss files as
-    - style.module.css
-    - style.module.scss
-    - style.module.sass
-
-    Note: Before "react-scripts@2.0.0", use "npm run eject" and follow its steps.
-
-    
-4. Using Third party package.
-    ex: Radium
-
-
-*/
