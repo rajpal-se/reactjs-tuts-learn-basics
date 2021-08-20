@@ -1,23 +1,30 @@
 import React from "react";
-import Radium from "radium";
 
 const person = (props) => {
     const paraStyle = {
-        textAlign: "center",
-        backgroundColor: "orange",
-        "@media (max-width: 800px)": {
-            color: "yellow",
-            backgroundColor: "red"
-        },
-        "@media (max-width: 600px)": {
-            color: "white",
-            backgroundColor: "green"
-        }
+        border: "1px solid gray",
+        padding: "10px 20px",
+        position: "relative",
+        borderRadius: "10px",
+        backgroundColor: "#fafafa"
+    };
+    const buttonStyle = {
+        position: "absolute",
+        right: "10px",
+        top: "7px",
+        marginBottom: "-50%",
+        fontWeight: "bold",
+        backgroundColor: "red",
+        padding: "4px 8px",
+        cursor: "pointer",
+        color: "white",
+        borderColor: "orange"
     };
     return (
-        <div>
-            <p style={paraStyle}>I am {props.name}</p>           
-        </div>
+        <p style={paraStyle}>
+            I am <b>{props.name}</b>
+            <button style={buttonStyle} onClick={e => props.deleteHandler.call(this, props.id, e)}>X</button>
+        </p>
     );
 }
-export default Radium(person);
+export default person;
