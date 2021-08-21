@@ -20,6 +20,11 @@ const person = (props) => {
         color: "white",
         borderColor: "orange"
     };
+
+    if(Math.random() > 0.8){
+        throw new Error("Hi there is some error (number < 0.5)");
+    }
+
     return (
         <p style={paraStyle}>
             I am <b>{props.name}</b>
