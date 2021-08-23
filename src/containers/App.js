@@ -15,6 +15,32 @@ class App extends Component{
     showPersons: true,
   }
   
+  constructor(props){
+    super(props);
+    console.log("[App.js] constructor()");
+  }
+  static getDerivedStateFromProps(props, state){
+    console.log("[App.js] getDerivedStateFromProps()");
+    return state;
+  }
+  componentDidMount(){
+    console.log("[App.js] componentDidMount()");
+  }
+  shouldComponentUpdate(nextProps, nextState){
+    console.log("[App.js] shouldComponentUpdate()");
+    return true;
+  }
+  getSnapshotBeforeUpdate(prevProps, prevState){
+    console.log("[App.js] getSnapshotBeforeUpdate()");
+    return {message: "Snapshot!"};
+  }
+  componentDidUpdate(){
+    console.log("[App.js] componentDidUpdate()");
+  }
+  componentWillUnmount(){
+    console.log("[App.js] componentWillUnmount()");
+  }
+
 
   showListClickHandler = () => {
     this.setState({showPersons: !this.state.showPersons});
@@ -28,6 +54,7 @@ class App extends Component{
     this.setState({persons: newPersons});
   }
   render(){
+    console.log("[App.js] render()");
     return (
       <div>
         <Cockpit
@@ -44,3 +71,78 @@ class App extends Component{
   }
 }
 export default App;
+
+/* Note:
+
+Component Mounting
+- constructor(props)
+- static getDerivedStateFromProps(props, state)
+- render()
+- componentDidMount()
+
+
+Component Updating
+- static getDerivedStateFromProps(props, state)
+- shouldComponentUpdate(nextProps, nextState)
+- render()
+- getSnapshotBeforeUpdate(prevProps, prevState)
+- componentDidUpdate()
+
+Component Unmounting
+- componentWillUnmount()
+
+
+
+
+Console.log()
+
+// When page loads...
+[App.js] constructor()                          App.js:20
+[App.js] getDerivedStateFromProps()             App.js:23
+[App.js] render()                               App.js:57
+[Persons.js] constructor()                      Persons.js:16
+[Persons.js] getDerivedStateFromProps()         Persons.js:19
+[Persons.js] render()                           Persons.js:41
+(5) [Person.js] function()                      Person.js:26
+[Persons.js] componentDidMount()                Persons.js:23
+[App.js] componentDidMount()                    App.js:27
+
+// Click on "Hide List"
+[App.js] getDerivedStateFromProps()             App.js:23
+[App.js] shouldComponentUpdate()                App.js:30
+[App.js] render()                               App.js:57
+[Persons.js] getDerivedStateFromProps()         Persons.js:19
+[Persons.js] shouldComponentUpdate()            Persons.js:26
+[Persons.js] render()                           Persons.js:41
+[Persons.js] getSnapshotBeforeUpdate()          Persons.js:30
+[App.js] getSnapshotBeforeUpdate()              App.js:34
+[Persons.js] componentDidUpdate()               Persons.js:34
+[App.js] componentDidUpdate()                   App.js:38
+
+// Click on "Show List"
+[App.js] getDerivedStateFromProps()             App.js:23
+[App.js] shouldComponentUpdate()                App.js:30
+[App.js] render()                               App.js:57
+[Persons.js] getDerivedStateFromProps()         Persons.js:19
+[Persons.js] shouldComponentUpdate()            Persons.js:26
+[Persons.js] render()                           Persons.js:41
+(5) [Person.js] function()                      Person.js:26
+[Persons.js] getSnapshotBeforeUpdate()          Persons.js:30
+[App.js] getSnapshotBeforeUpdate()              App.js:34
+[Persons.js] componentDidUpdate()               Persons.js:34
+[App.js] componentDidUpdate()                   App.js:38
+
+// Delete one Person
+[App.js] getDerivedStateFromProps()             App.js:23
+[App.js] shouldComponentUpdate()                App.js:30
+[App.js] render()                               App.js:57
+[Persons.js] getDerivedStateFromProps()         Persons.js:19
+[Persons.js] shouldComponentUpdate()            Persons.js:26
+[Persons.js] render()                           Persons.js:41
+(4) [Person.js] function()                      Person.js:26
+[Persons.js] getSnapshotBeforeUpdate()          Persons.js:30
+[App.js] getSnapshotBeforeUpdate()              App.js:34
+[Persons.js] componentDidUpdate()               Persons.js:34
+[App.js] componentDidUpdate()                   App.js:38
+
+*/

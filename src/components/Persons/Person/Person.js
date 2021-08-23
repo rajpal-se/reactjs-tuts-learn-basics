@@ -23,6 +23,8 @@ const person = (props) => {
         }
     };
 
+    console.log("[Person.js] function()");
+
     return (
         <p style={style.paragraph}>
             I am <b>{props.name}</b>
