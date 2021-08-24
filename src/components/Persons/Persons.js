@@ -39,9 +39,9 @@ class Persons extends Component {
     
     render(){
         console.log("[Persons.js] render()");
+        
 
         return (
-            this.props.showPersons?
             <div style={this.style.list}>
                 {
                     this.props.persons.map(person => (
@@ -55,7 +55,6 @@ class Persons extends Component {
                     )
                 }
             </div>
-            :null
         );
     }
 }

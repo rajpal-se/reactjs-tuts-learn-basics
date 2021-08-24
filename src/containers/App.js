@@ -55,17 +55,23 @@ class App extends Component{
   }
   render(){
     console.log("[App.js] render()");
+    let persons = null;
+
+    if(this.state.showPersons){
+      persons = (
+        <Persons
+          showPersons={this.state.showPersons}
+          persons={this.state.persons}
+          personDeleteHandler={this.personDeleteHandler}/>
+      );
+    }
     return (
       <div>
         <Cockpit
           clicked={this.showListClickHandler}
           showPersons={this.state.showPersons}
           />
-        <Persons
-          showPersons={this.state.showPersons}
-          persons={this.state.persons}
-          personDeleteHandler={this.personDeleteHandler}
-          />
+        {persons}
       </div>
     );
   }
@@ -111,25 +117,20 @@ Console.log()
 [App.js] getDerivedStateFromProps()             App.js:23
 [App.js] shouldComponentUpdate()                App.js:30
 [App.js] render()                               App.js:57
-[Persons.js] getDerivedStateFromProps()         Persons.js:19
-[Persons.js] shouldComponentUpdate()            Persons.js:26
-[Persons.js] render()                           Persons.js:41
-[Persons.js] getSnapshotBeforeUpdate()          Persons.js:30
 [App.js] getSnapshotBeforeUpdate()              App.js:34
-[Persons.js] componentDidUpdate()               Persons.js:34
+[Persons.js] componentWillUnmount()             Persons.js:37
 [App.js] componentDidUpdate()                   App.js:38
 
 // Click on "Show List"
 [App.js] getDerivedStateFromProps()             App.js:23
 [App.js] shouldComponentUpdate()                App.js:30
 [App.js] render()                               App.js:57
+[Persons.js] constructor()                      Persons.js:16
 [Persons.js] getDerivedStateFromProps()         Persons.js:19
-[Persons.js] shouldComponentUpdate()            Persons.js:26
 [Persons.js] render()                           Persons.js:41
 (5) [Person.js] function()                      Person.js:26
-[Persons.js] getSnapshotBeforeUpdate()          Persons.js:30
 [App.js] getSnapshotBeforeUpdate()              App.js:34
-[Persons.js] componentDidUpdate()               Persons.js:34
+[Persons.js] componentDidMount()                Persons.js:23
 [App.js] componentDidUpdate()                   App.js:38
 
 // Delete one Person
