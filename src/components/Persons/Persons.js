@@ -48,8 +48,10 @@ class Persons extends Component {
                         <Person
                             id={person.id}
                             name={person.name}
+                            age={person.age}
                             deleted={this.props.personDeleteHandler}
                             key={person.id}
+                            changed={this.props.personNameChangeHandler}
                             />
                         )
                     )
