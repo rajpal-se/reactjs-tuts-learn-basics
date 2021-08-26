@@ -1,38 +1,30 @@
 import React, { Component } from 'react';
+import Person from './Person';
 
 class App extends Component{
 
-  state = {counter: 0}
+  updateHandler = () => {
 
-  updateCounter = () => {
-    /*
-    this.setState({
-      counter: this.state.counter + 1
-    });
-    */
-
-
-    /* Note:
-    * Use this Approach, whenever there is use of "Previous" State
-    * In above Case sometimes "this.state" refers to "old" State, Instead of "Previous" State.
-    */
-    this.setState( (prevState, props) => {
-      // Don't Mutate the "State".
-      return {
-        counter: prevState.counter + 1
-      }
-    } );
-    
   }
 
   render(){
     return (
-      <div style={{margin: '20px auto', width: '100px'}}>
-        <div>Counter: <b>{this.state.counter}</b></div><br/>
-        <button onClick={this.updateCounter}>Increment</button>
-      </div>
+      <Person age={20} name="name" updated={this.updateHandler}></Person>
     );
   }
 }
 
 export default App;
+
+/* Note:
+PropTypes can be used for "Class-Based" and "Functional" Component
+
+"prop-types": It is a package from React Community.
+But it is not included in React Core.
+
+By default, It is installed when we create React project.
+But Still, To install it manually.
+
+npm install prop-types --save
+
+*/
