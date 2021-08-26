@@ -1,4 +1,6 @@
-import React, { useRef } from 'react';
+import React, { useContext } from 'react';
+
+import AuthContext from '../../context/authContext';
 
 const Cockpit = props => {
     const style = {
@@ -15,25 +17,42 @@ const Cockpit = props => {
         button: {
           cursor: "pointer",
           padding: "10px 20px"
-        },
-        
+        }
       };
     
-    const headingRef = useRef(null);
-
+    const authContext = useContext(AuthContext);
+    
     return (
-        <div>
+      <div>
+        <p style={style.paragraph}>
+          Total Persons: <b>{authContext.persons.length}</b>
+        </p>
+        <h1 style={style.heading}>List of All Persons</h1>
+        <p style={style.paragraph}>
+            <button style={style.button} onClick={authContext.toggleShowPersons}>
+                {props.showPersons? 'Hide List' : 'Show List'}
+            </button>
+        </p>
+        <hr/>
+      </div>
+      /*
+      <AuthContext.Consumer>
+        {context => (
+          <div>
             <p style={style.paragraph}>
-              <button style={style.button} onClick={ () => { console.log(headingRef.current); } }>Console.log()</button>
+              Total Persons: <b>{context.persons.length}</b>
             </p>
-            <h1 style={style.heading} ref={headingRef}>List of All Persons</h1>
+            <h1 style={style.heading}>List of All Persons</h1>
             <p style={style.paragraph}>
-                <button style={style.button} onClick={props.clicked}>
+                <button style={style.button} onClick={context.toggleShowPersons}>
                     {props.showPersons? 'Hide List' : 'Show List'}
                 </button>
             </p>
             <hr/>
-        </div>
+          </div>
+        )}
+      </AuthContext.Consumer>
+      */
     );
 }
 

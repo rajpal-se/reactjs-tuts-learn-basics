@@ -2,13 +2,10 @@ import React, { Component } from 'react';
 import Cockpit from '../components/Cockpit/Cockpit';
 import Persons from '../components/Persons/Persons';
 
+import AuthContext from '../context/authContext';
+
 
 class App extends Component{
-
-  constructor(props){
-    super(props);
-    this.showCockpitBtnRef = React.createRef(null);
-  }
 
   state = {
     persons: [
@@ -18,8 +15,8 @@ class App extends Component{
       // {id: "id_4", name: "Jackson"},
       // {id: "id_5", name: "James"}
     ],
-    showCockpit: false,
-    showPersons: false
+    showCockpit: true,
+    showPersons: true
   }
 
   toggleShowCockpit = () => {
@@ -35,10 +32,6 @@ class App extends Component{
     });
     newPersons[index].name = event.target.value;
     this.setState({'persons': newPersons});
-  }
-
-  componentDidMount(){
-    this.showCockpitBtnRef.current.click();
   }
 
   render(){
@@ -61,71 +54,97 @@ class App extends Component{
     }
     return (
       <div>
-        <button className="cockpit-btn" onClick={this.toggleShowCockpit} ref={this.showCockpitBtnRef}>
+        <button className="cockpit-btn" onClick={this.toggleShowCockpit}>
           {this.state.showCockpit? 'Hide Cockpit': 'Show Cockpit'}
         </button>
         <hr/>
-        {cockpit}
-        {persons}
+        <AuthContext.Provider value={{
+            persons: this.state.persons,
+            toggleShowPersons: this.toggleShowPersons,
+            nameChangeHandler: this.changePersonNameHanlder
+          }}>
+          {cockpit}
+          {persons}
+        </AuthContext.Provider>
       </div>
     );
   }
 }
 export default App;
 
+
 /* Note:
-
-How to use Ref ?
-
-In Class Based Component
-
-Method 1: (App.js) [Add in React version 16.3]
+Context API is introduced in [v16.3]
 
 Step 1:
-constructor(props){
-  super(props);
-  this.btnRef = React.createRef(null);
-}
+[context/authContext.js]
 
-Step 2:
-<button ref={this.btnRef}>Click It</button>
-
-Step 3:
-componentDidMount(){
-  this.btnRef.current.click();
-}
+import React from 'react';
+const authContext = React.createContext(null);
+export default authContext;
 
 
-Method 2: (Persons.js) [Old way]
+Step 2: First Import
+import AuthContext from '../context/authContext';
 
-class Persons extends Component {
-  btnRef = null;                        // Step 1
-      OR
-  btnRef = {current: null};
+<AuthContext.Provider value={ DefaultValues... }>
+  ...
+</AuthContext.Provider>
 
-  componentDidMount(){                  // Step 3
-    this.btnRef.focus();
+
+Step 3: First Import
+import AuthContext from '../context/authContext';
+
+<AuthContext.Consumer>
+  { context => (
+    <div> {context.name} </div>
+  ) }
+</AuthContext.Consumer>
+
+--------------------------------------------------------------------------------
+
+Note:  Another method of using Context API
+
+This method is introduced in [React v16.6]
+
+You have to use <AuthContext.Provider> as usual.
+But "Consumer" section their new approach
+
+######################################
+Ex: For "Class Based" Component
+Note: Now You can use "this.context.<prop-name>" property in Entire class anywhere.
+
+
+import AuthContext from '../context/authContext';
+class Persons extends Component{
+  static contextType = AuthContext;
+
+  componentDidMount(){
+    this.context.myProperty ...
   }
 
-  render(){                             // Step 2
-    <button ref={this.btnRef}>Click It</button>
-  }
+  render(
+    return(
+      this.context.myProperty ...
+    )
+  )
 }
 
+######################################
+Ex: For "Functional" Component
 
--------------------------------------------------------------------
-For Functional Component
+import React, { useContext } from 'react';
+import AuthContext from '../context/authContext';
 
-import React, { useEffect, useRef } from 'react';
+const Persons = props => {
 
-const Cockpit = props => {
-  const btnRef = useRef(null);                       // Step 1
+  const authContext = useContext(AuthContext);
 
-  useEffect( () => {                                 // Step 3
-    btnRef.current.focus();
-  } );
+  // Now you can use "authContext" anywhere inside this function
 
-  return <button ref={btnRef}>Click It</button>;     // Step 2
+  return (
+    JSX...
+  );
 }
 
 */

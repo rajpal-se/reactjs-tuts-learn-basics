@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import Person from './Person';
 
 class Persons extends Component {
     style = {
@@ -8,26 +9,17 @@ class Persons extends Component {
         }
     }
 
-    lastInputRef = null;
-
-    componentDidMount(){
-        this.lastInputRef.focus();
-    }
-
     render(){
         return (
             <div style={this.style.list}>
                 {
                     this.props.persons.map(person => (
-                        <p className="paragraph" key={person.id}>
-                            I am <b>{person.name}</b>. Age: <b>{person.age}</b>
-                            <br/>
-                            <input type="text" value={person.name}
-                                onChange={e => {this.props.changed.call(null, person.id, e)}}
-                                ref={element => {this.lastInputRef = element} }/>
-                        </p>
-                        )
-                    )
+                        <Person
+                            key={person.id}
+                            id={person.id}
+                            name={person.name}
+                            age={person.age}/>
+                    ) )
                 }
             </div>
         );
