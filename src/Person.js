@@ -1,20 +1,19 @@
 import React from 'react';
 
-import PropTypes from 'prop-types';
-
 const Person = props => {
-    return (
-        <div style={{textAlign: 'center'}}>
-            <p>I am {props.name}.</p>
-            <p>I am {props.age} years old.</p>
-        </div>
-    );
-}
 
-Person.propTypes = {
-    name: PropTypes.string,
-    age: PropTypes.number,
-    updated: PropTypes.func
+    const style = {
+        border: '1px solid gray',
+        margin: '5px',
+        padding: '10px 20px'
+    }
+
+    return props.persons.map(person => (
+        <div style={style} key={person.id}>
+            I am <b>{person.name}</b><br/>
+            <input type="text" value={person.name}/>
+        </div>
+    ));
 }
 
 export default Person;

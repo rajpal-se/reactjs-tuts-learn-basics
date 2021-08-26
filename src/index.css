@@ -12,9 +12,21 @@ code {
     monospace;
 }
 
-.bg-silver{
-  background-color: silver;
+input:focus{
+  outline-color: blue;
 }
-.bg-cyan{
-  background-color: cyan;
+.paragraph{
+  border: 1px solid gray;
+  padding: 10px 20px;
+  position: relative;
+  border-radius: 10px;
+  background-color: #fafafa;
+  margin-bottom: 12px;
+}
+.paragraph>input{
+  margin-top: 10px;
+}
+.cockpit-btn{
+  display: block;
+  margin: 10px auto;
 }
