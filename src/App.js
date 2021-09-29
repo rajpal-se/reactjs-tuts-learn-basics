@@ -1,61 +1,95 @@
 import React from 'react';
 
 class App extends React.Component{
+
+    // Using ES6 syntax
+    clickHandler = (arg1, arg2) => {
+        console.log(this);  // (App Object) - React component Object
+        console.log(arg1);  // Click Event Object (SyntheticBaseEvent)
+        console.log(arg2);  // undefined
+    }
     
     render(){
-        return ( 
-            <>
-                <h1>Conditional Rendering</h1>
-                {/* 
-                You can assign JSX to variables and change their value later based on condition.
-                Example:
-                let com = <LoggedIn>;
-                if(userIsLoggedOut) com = <LoggedOut>;
-
-                return com;
-                */}
-
-                {/* To implement inline IF statement,
-                    use Logical && operator */}
-                <div>
-                    <p>{true}</p>               {/* <p></p> */} {/* It is null */}
-                    <p>{false}</p>              {/* <p></p> */} {/* It is null */}
-                    <p>{0}</p>                  {/* <p>0</p> */}
-                    <p>{1}</p>                  {/* <p>1</p> */}
-                    <p>{3 > 1 && "hi"}</p>      {/* <p>hi</p> */}
-                    <p>{5 < 3 && "hi"}</p>      {/* <p></p> */} {/* It is null */}
-                    <p>{1 && "hi"}</p>          {/* <p>hi</p> */}
-                    <p>{0 && "hi"}</p>          {/* <p>0</p> */} {/* It is null */}
-                    <p>{1 && 1}</p>             {/* <p>1</p> */}
-                    <p>{1 && 0}</p>             {/* <p>0</p> */}
-                    <p>{1 && 5}</p>             {/* <p>5</p> */}
-                    <p>{"a" && "b" && 2>1}</p>  {/* <p></p> */} {/* It is null */}
-                    <p>{"a" && "b" && "c"}</p>  {/* <p>c</p> */}
-                </div>
-
-                {/* To implement inline IF-ELSE statement,
-                    use "Ternary" operator */}
-                <div>
-                    <p>{ true ? "Logged in" : "Logged out"}</p>     {/* <p>Logged in</p> */}
-                    <p>{ false ? "Logged in" : "Logged out"}</p>    {/* <p>Logged out</p> */}
-                </div>
-
-                {/* To prevent Component from rendering, return "null"
-                
-                render(){
-                    if(true){
-                        return null;
-                    }
-                    return (
-                        <div>...</div>
-                    );
-                }
-                
-                
-                */}
-            </>
-        );
+        return (
+            <button onClick={this.clickHandler}>Click me</button>
+        )
     }
+    
+
+    /* Simple function definition
+    clickHandler(arg1, arg2){
+        console.log(this);  // undefined
+        console.log(arg1);  // Click Event Object (SyntheticBaseEvent)
+        console.log(arg2);  // undefined
+    }
+    render(){
+        return (
+            <button onClick={this.clickHandler}>Click me</button>
+        )
+    }
+    */
+
+    /*
+    constructor(props){
+        super(props);
+        this.clickHandler = this.clickHandler.bind(this);
+    }
+    clickHandler(arg1, arg2){
+        console.log(this);  // (App Object) - React component Object
+        console.log(arg1);  // Click Event Object (SyntheticBaseEvent)
+        console.log(arg2);  // undefined
+    }
+    render(){
+        return (
+            <button onClick={this.clickHandler}>Click me</button>
+        )
+    }
+    */
+
+    /* Bind "this"
+    clickHandler(){
+        console.log(this);  // (App Object) - React component Object
+    }
+    render(){
+        return (
+            <button onClick={this.clickHandler.bind(this)}>Click me</button>
+        )
+    }
+    */
+
+    /*
+     * Other way to Access "Click Event Object". 
+     * */
+
+    // Method 1: 
+    /* Using Anonymous function
+    clickHandler(){
+        console.log(this);  // Click Event Object (SyntheticBaseEvent)
+    }
+    render(){
+        return (
+            <button onClick={(e) => this.clickHandler.call(e) }>Click me</button>
+            // OR
+            <button onClick={(e) => { this.clickHandler.call(e) } }>Click me</button>
+        )
+    }
+    */
+
+
+    // Method 2:
+    /*
+    clickHandler = (event) => {
+        console.log(event);  // Click Event Object (SyntheticBaseEvent)
+    }
+
+    render(){
+        return (
+            <button onClick={(e) => this.clickHandler(e) }>Click me</button>
+        )
+    }
+    */
+
+
 }
 
 export default App;
